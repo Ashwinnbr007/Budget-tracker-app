@@ -4,6 +4,16 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+:root{
+  --greyAccentColor:#777;
+  --redAccentColor:#f81717;
+  --greenAccentColor:#31d917;
+  --whiteTextColor:#ddd;
+  --pureWhiteColor:#fff;
+  --almostBlackColor:#17181f;
+  --greyBorderColor:#30313d;
+}
+
 *{
   box-sizing: border-box;
 }
@@ -24,21 +34,21 @@ input[type=number] {
 }
 p{
   margin: 0;
-  color: #777;
+  color: var(--greyAccentColor);
 }
 mark.red {
-  color:#f81717;
+  color:var(--redAccentColor);
   background: none;
 }
 
 mark.green {
-  color:#31d917;
+  color:var(--greenAccentColor); 
   background: none;
 }
 
 body{
-  background-color: #17181f;
-  color: #ddd;
+  background-color: var(--almostBlackColor);
+  color: var(--whiteTextColor);
 }
 .main{
   max-width: 360px;
@@ -47,7 +57,7 @@ body{
 }
 h1{
   text-align: center;
-  color: #fff;
+  color: var(--pureWhiteColor);
   margin: 0;
 }
 form{
@@ -56,8 +66,8 @@ form{
 form input{
   width: 50%;
   background-color: transparent;
-  color: #ddd;
-  border: 2px solid #30313d;
+  color: var(--whiteTextColor);
+  border: 2px solid var(--greyBorderColor);
   margin-bottom: 5px;
   padding: 10px 5px;
   border-radius: 8px;
@@ -73,7 +83,7 @@ form input::placeholder{
 }
 
 form input[type=date]{
-  color:#777;
+  color:var(--greyAccentColor);
 }
 
 form button{
@@ -82,17 +92,19 @@ form button{
   border-radius: 8px;
   border: none ;
   font-size: 12px;
-  background-color: #30313d;
-  color: #777;
+  background-color: var(--greyBorderColor);
+  color: var(--greyAccentColor);
   cursor: pointer;
-
 }
 
-form button:hover{
-  border: 2px solid #31d917;
-  color: #ddd;
-  /* box-shadow: 0px 0.5px 5px 1px #4CAF50; */
-  /* color: white; */
+form button.green:hover{
+  border: 2px solid var(--greenAccentColor);
+  color: var(--whiteTextColor);
+}
+
+form button.red:hover{
+  border: 2px solid var(--redAccentColor);
+  color: var(--whiteTextColor);
 }
 
 form div.Details{
@@ -104,18 +116,18 @@ form div.Details{
   margin-top: 10px;
 }
 .Transaction{
-  border-top : 1px solid #30313d;
+  border-top : 1px solid var(--greyBorderColor);
   display: flex;
   justify-content: space-between;
   padding: 5px 0;
 }
 .TransactionAmountRed{
   font-size: 25px;
-  color: #f81717;
+  color: var(--redAccentColor);
 }
 .TransactionAmountGreen{
   font-size: 25px;
-  color: #31d917;
+  color: var(--greenAccentColor);
 }
 .TransactionDetails{
   font-size: 20px;
@@ -124,5 +136,5 @@ form div.Details{
   font-size: 13px;
   text-align: right;
   font-style: italic;
-  color: #777;
+  color: var(--greyAccentColor);
 }

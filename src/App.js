@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 
 function CreateDate(){
@@ -7,12 +8,16 @@ function CreateDate(){
 }
 function App() {
   let todaysDate = CreateDate();
+  const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+
   return (
     <div className='main'>
       <h1>₹100<span>.00</span></h1>
       <form>
         <div className='Amount'>
-          <input placeholder = "₹" type="number"></input>
+          <input value={amount} onChange={e => setAmount(e.target.value)} placeholder = "₹" type="number"></input>
         </div>
         <div className='AmountHint'>
             <p className='left'> <mark className='red'>Negative</mark> for debited</p>
@@ -22,7 +27,7 @@ function App() {
           <input placeholder = "Description of the item" type="desc"></input>
           <input id='datePicker' defaultValue = {todaysDate} type="date"></input>
         </div>
-        <button type='Submit'>
+        <button className='red' type='Submit'>
           Add New Transaction
         </button>
       </form>
