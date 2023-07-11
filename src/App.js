@@ -7,17 +7,19 @@ function CreateDate(){
 
 }
 function App() {
-  let todaysDate = CreateDate();
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
+  
+  let todaysDate = CreateDate();
+  let amountColor = amount > 0 ? "green" : "red";
 
   return (
     <div className='main'>
       <h1>₹100<span>.00</span></h1>
       <form>
         <div className='Amount'>
-          <input value={amount} onChange={e => setAmount(e.target.value)} placeholder = "₹" type="number"></input>
+          <input className={amountColor} value={amount} onChange={e => setAmount(e.target.value)} placeholder = "₹" type="number"></input>
         </div>
         <div className='AmountHint'>
             <p className='left'> <mark className='red'>Negative</mark> for debited</p>
@@ -27,7 +29,7 @@ function App() {
           <input placeholder = "Description of the item" type="desc"></input>
           <input id='datePicker' defaultValue = {todaysDate} type="date"></input>
         </div>
-        <button className='red' type='Submit'>
+        <button className={amountColor} type='Submit'>
           Add New Transaction
         </button>
       </form>

@@ -74,6 +74,14 @@ form input{
   text-align: center;
 }
 
+form .Amount .green{
+  color:var(--greenAccentColor);
+}
+
+form .Amount .red{
+  color:var(--redAccentColor);
+}
+
 form input::placeholder{
   text-align: center;
 }
