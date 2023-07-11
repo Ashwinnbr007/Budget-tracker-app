@@ -4,10 +4,38 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+*{
+  box-sizing: border-box;
+}
+
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+  width: 100%;
+  padding: 20px;
+  font-size: 24px;
 }
+.AmountHint{
+  margin: 0;
+  font-size: 10px;
+  display: flex;
+  margin-bottom: 5px;
+  justify-content: space-between;
+}
+p{
+  margin: 0;
+  color: #777;
+}
+mark.red {
+  color:#f81717;
+  background: none;
+}
+
+mark.green {
+  color:#31d917;
+  background: none;
+}
+
 body{
   background-color: #17181f;
   color: #ddd;
@@ -23,9 +51,78 @@ h1{
   margin: 0;
 }
 form{
-  margin-top: 30px;
+  margin-top: 20px;
 }
-/* form input{
+form input{
+  width: 50%;
+  background-color: transparent;
+  color: #ddd;
+  border: 2px solid #30313d;
+  margin-bottom: 5px;
+  padding: 10px 5px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+form input::placeholder{
+  text-align: center;
+}
+
+::-webkit-calendar-picker-indicator {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+}
+
+form input[type=date]{
+  color:#777;
+}
+
+form button{
   width: 100%;
-} */
-/* form div. */
+  padding: 10px;
+  border-radius: 8px;
+  border: none ;
+  font-size: 12px;
+  background-color: #30313d;
+  color: #777;
+  cursor: pointer;
+
+}
+
+form button:hover{
+  border: 2px solid #31d917;
+  color: #ddd;
+  /* box-shadow: 0px 0.5px 5px 1px #4CAF50; */
+  /* color: white; */
+}
+
+form div.Details{
+  display: flex;
+  gap: 5px;
+}
+
+.Transactions{
+  margin-top: 10px;
+}
+.Transaction{
+  border-top : 1px solid #30313d;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+.TransactionAmountRed{
+  font-size: 25px;
+  color: #f81717;
+}
+.TransactionAmountGreen{
+  font-size: 25px;
+  color: #31d917;
+}
+.TransactionDetails{
+  font-size: 20px;
+}
+.TransactionDate{
+  font-size: 13px;
+  text-align: right;
+  font-style: italic;
+  color: #777;
+}
