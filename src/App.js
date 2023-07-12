@@ -4,14 +4,13 @@ import './App.css';
 function CreateDate(){
   const dateObject = new Date();
   return dateObject.toISOString().split('T')[0]
-
 }
 function App() {
+  const RUPEE_SYMBOL = "₹";
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(CreateDate());
   const [transactions, setTransactions] = useState([]);
-
 
   let amountColor = amount === "0" || amount === "" ? "default" : (amount > 0) ? "green" : "red";
 
@@ -20,7 +19,7 @@ function App() {
     e.preventDefault();
     const url = process.env.REACT_APP_API_URL+'/transaction';
     //Sending a post request to our api endpoint
-    const res = await fetch(url,{
+    await fetch(url,{
       method:'POST',
       headers:{
         'Content-type':'application/json'
@@ -31,7 +30,6 @@ function App() {
     setAmount('');
     setDescription('');
     setDate(CreateDate());
-    let response = await(res.json())
   }
 
   useEffect(() => {
@@ -41,19 +39,33 @@ function App() {
       return await res.json();
     }
     FetchData().then(transaction => { setTransactions(transaction) });
-  }, [])
+  }, [transactions])
 
-  console.log(transactions)
+  let headerString = ""
+  let balance = 0
+  for (const transaction of transactions) {
+    balance += parseInt(transaction.amount);
+  }
+  if (balance === 0) {
+    headerString = ""
+  } else if (balance < 0) {
+    headerString = RUPEE_SYMBOL + balance.toString().replace('-', '');
+  } else {
+    headerString = RUPEE_SYMBOL + balance;
+  }
   
   return (
     <div className='main'>
-      <h1>₹100<span>.00</span></h1>
+      <h1 className={
+        (balance > 0 ? "headerGreen" : "headerRed")}>
+        {(headerString)}
+      </h1>
       <form onSubmit={e=>AddNewTransaction(e)}>
         <div className='Amount'>
           <input className={amountColor}
             value={amount}
             onChange={e => setAmount(e.target.value)}
-            placeholder="₹"
+            placeholder={RUPEE_SYMBOL}
             type="number"></input>
         </div>
         <div className='AmountHint'>
@@ -77,24 +89,24 @@ function App() {
         </button>
       </form>
       <div className='Transactions'>
-        <div className='Transaction'>
-          <div className='Left'>
-            <div className='TransactionAmountRed'>₹500</div>
-          </div>
-          <div className='Right'>
-            <div className='TransactionDetails'>Samsung tv</div>
-            <div className='TransactionDate'>05/12/2000</div>
-          </div>
-        </div>
-        <div className='Transaction'>
-          <div className='Left'>
-            <div className='TransactionAmountGreen'>₹500</div>
-          </div>
-          <div className='Right'>
-            <div className='TransactionDetails'>Samsung tv</div>
-            <div className='TransactionDate'>05/12/2000</div>
-          </div>
-        </div>
+        {
+          transactions.length > 0 && transactions.map((transaction, idx) => (
+            <div className='Transaction' key={idx}>
+              <div className='Left'>
+                <div className={
+                  (transaction.amount > 0 ?
+                    "TransactionAmountGreen" : "TransactionAmountRed")}>
+                  {RUPEE_SYMBOL + (transaction.amount < 0 ?
+                    transaction.amount.replace('-', '') :
+                    transaction.amount)}</div>
+              </div>
+              <div className='Right'>
+                <div className='TransactionDetails'>{transaction.description}</div>
+                <div className='TransactionDate'>{transaction.date}</div>
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
   );
