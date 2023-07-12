@@ -7,7 +7,9 @@ input::-webkit-inner-spin-button {
 :root{
   --greyAccentColor:#777;
   --redAccentColor:#f81717;
+  --lighterRedText:#ab1010;
   --greenAccentColor:#31d917;
+  --lighterGreenText:#24a411;
   --whiteTextColor:#ddd;
   --pureWhiteColor:#fff;
   --almostBlackColor:#17181f;
@@ -75,11 +77,15 @@ form input{
 }
 
 form .Amount .green{
-  color:var(--greenAccentColor);
+  color:var(--lighterGreenText);
 }
 
 form .Amount .red{
-  color:var(--redAccentColor);
+  color:var(--lighterRedText);
+}
+
+form .Amount .default{
+  color:var(--whiteTextColor);
 }
 
 form input::placeholder{
@@ -91,7 +97,7 @@ form input::placeholder{
 }
 
 form input[type=date]{
-  color:var(--greyAccentColor);
+  color:var(--whiteTextColor);
 }
 
 form button{
@@ -112,6 +118,11 @@ form button.green:hover{
 
 form button.red:hover{
   border: 2px solid var(--redAccentColor);
+  color: var(--whiteTextColor);
+}
+
+form button.default:hover{
+  border: 2px solid var(--greyAccentColor);
   color: var(--whiteTextColor);
 }
 
