@@ -30,4 +30,9 @@ app.get('/api/transactions/', async (req, res) => {
     res.json(Transactions);  
 })
 
-app.listen(4000)
+
+if (process.env.PORT) {
+    app.listen(4000)
+}
+
+module.exports = app;
