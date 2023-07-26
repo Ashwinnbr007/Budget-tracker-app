@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import TransactionData from './transactionData/TransactionData';
 
 function CreateDate(){
   const dateObject = new Date();
@@ -95,22 +96,10 @@ function App() {
       </form>
       <div className='Transactions'>
         {
-          transactions.length > 0 && transactions.map((transaction, idx) => (
-            <div className='Transaction' key={idx}>
-              <div className='Left'>
-                <div className={
-                  (transaction.amount > 0 ?
-                    "TransactionAmountGreen" : "TransactionAmountRed")}>
-                  {RUPEE_SYMBOL + (transaction.amount < 0 ?
-                    transaction.amount.replace('-', '') :
-                    transaction.amount)}</div>
-              </div>
-              <div className='Right'>
-                <div className='TransactionDetails'>{transaction.description}</div>
-                <div className='TransactionDate'>{transaction.date}</div>
-              </div>
-            </div>
-          ))
+          <TransactionData
+            transactions={transactions}
+            RUPEE_SYMBOL={RUPEE_SYMBOL}
+          />
         }
       </div>
     </div>
