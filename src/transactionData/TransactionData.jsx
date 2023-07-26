@@ -5,7 +5,7 @@ export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTrans
     revreseSortedTransactions.reverse();
 
     return (
-        <>
+        <div className='Transactions'>
             {revreseSortedTransactions.length > 0 && revreseSortedTransactions.map((transaction, idx) => (
                 <div className='Transaction' key={transaction._id}>
                         <div className='Left' style={{display:"flex", alignItems:'center'}}>
@@ -24,6 +24,6 @@ export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTrans
                         </div>
                     </div>
             ))}
-        </>
+        </div>
   )
 }

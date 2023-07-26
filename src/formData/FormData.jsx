@@ -27,6 +27,7 @@ export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBO
                 onChange={(e) => amountDetails.setDate(e.target.value)}
                 id='datePicker'
                 defaultValue={amountDetails.date}
+                max={amountDetails.date}
                 type="date"></input>
             </div>
             <button className={amountDetails.amountColor} type='Submit'>

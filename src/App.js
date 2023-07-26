@@ -8,6 +8,7 @@ function CreateDate(){
 }
 function App() {
   const RUPEE_SYMBOL = "₹";
+  const MONEY_SYMBOL = "💸"
   const url = process.env.REACT_APP_API_URL+'/transaction';
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
@@ -32,7 +33,6 @@ function App() {
   }
 
   async function AddNewTransaction(e) {
-    
     e.preventDefault();
     //Sending a post request to our api endpoint
     try {
@@ -68,6 +68,8 @@ function App() {
 
   let headerString = ""
   let balance = 0
+  let hintMessage = ""
+
   for (const transaction of transactions) {
     balance += parseInt(transaction.amount);
   }
@@ -75,16 +77,21 @@ function App() {
     headerString = ""
   } else if (balance < 0) {
     headerString = RUPEE_SYMBOL + balance.toString().replace('-', '');
+    hintMessage = "Work on your spending habits! 👎🏻"
   } else {
     headerString = RUPEE_SYMBOL + balance;
+    hintMessage = "Your spending habits are looking good, keep it up! 💪🏻"
   }
   
   return (
     <div className='main'>
       <h1 className={
         (balance > 0 ? "headerGreen" : "headerRed")}>
-        {(headerString)}
+        {(headerString) || MONEY_SYMBOL } 
       </h1>
+      <h4>
+        {hintMessage}
+      </h4>
       <FormData
         AddNewTransaction={AddNewTransaction}
         amountDetails={
@@ -100,15 +107,11 @@ function App() {
         }
         RUPEE_SYMBOL={RUPEE_SYMBOL}
       />
-      <div className='Transactions'>
-        {
-          <TransactionData
-            transactions={transactions}
-            RUPEE_SYMBOL={RUPEE_SYMBOL}
-            deleteTransaction={deleteTransaction}
-          />
-        }
-      </div>
+      <TransactionData
+        transactions={transactions}
+        RUPEE_SYMBOL={RUPEE_SYMBOL}
+        deleteTransaction={deleteTransaction}
+      />
     </div>
   );
 }

@@ -10,7 +10,7 @@ input::-webkit-inner-spin-button {
   --lighterRedText:#ab1010;
   --greenAccentColor:#31d917;
   --lighterGreenText:#24a411;
-  --whiteTextColor:#ddd;
+  --whiteTextColor:#ababab;
   --pureWhiteColor:#fff;
   --almostBlackColor:#17181f;
   --greyBorderColor:#30313d;
@@ -72,6 +72,13 @@ h1{
   text-align: center;
   color: var(--pureWhiteColor);
   margin-top: 25px;
+}
+
+h4{
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--whiteTextColor);
 }
 
 form{
