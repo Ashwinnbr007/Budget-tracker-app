@@ -1,9 +1,11 @@
 import React from 'react'
 
 export default function TransactionData({transactions, RUPEE_SYMBOL}) {
+    const revreseSortedTransactions = transactions.slice();
+    revreseSortedTransactions.reverse();
     return (
         <>
-            {transactions.length > 0 && transactions.map((transaction, idx) => (
+            {revreseSortedTransactions.length > 0 && revreseSortedTransactions.map((transaction, idx) => (
                 <div className='Transaction' key={idx}>
                     <div className='Left'>
                         <div className={

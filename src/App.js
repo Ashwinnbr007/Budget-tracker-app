@@ -49,9 +49,6 @@ function App() {
       return await res.json();
     }
     FetchData().then(transaction => { setTransactions(transaction) });
-    transactions.sort(function (a, b) {
-      return new Date(a.date) - new Date(b.date)
-    });
   }, [transactions])
 
   let headerString = ""
