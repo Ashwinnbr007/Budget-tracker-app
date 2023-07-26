@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import TransactionData from './transactionData/TransactionData';
-
+import FormData from './formData/FormData';
 function CreateDate(){
   const dateObject = new Date();
   return dateObject.toISOString().split('T')[0]
@@ -66,34 +66,21 @@ function App() {
         (balance > 0 ? "headerGreen" : "headerRed")}>
         {(headerString)}
       </h1>
-      <form onSubmit={e=>AddNewTransaction(e)}>
-        <div className='Amount'>
-          <input className={amountColor}
-            value={amount}
-            onChange={e => setAmount(e.target.value)}
-            placeholder={RUPEE_SYMBOL}
-            type="number"></input>
-        </div>
-        <div className='AmountHint'>
-            <p className='left'> <mark className='red'>Negative</mark> for debited</p>
-            <p className='right'><mark className='green'>Positive</mark> for credited</p>
-          </div>
-        <div className='Details'>
-          <input
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            placeholder="Description of the item"
-            type="desc"></input>
-          <input
-            onChange={(e) => setDate(e.target.value)}
-            id='datePicker'
-            defaultValue={date}
-            type="date"></input>
-        </div>
-        <button className={amountColor} type='Submit'>
-          Add New Transaction
-        </button>
-      </form>
+      <FormData
+        AddNewTransaction={AddNewTransaction}
+        amountDetails={
+          {
+            amountColor: amountColor,
+            amount: amount,
+            description: description,
+            date: date,
+            setAmount: setAmount,
+            setDescription: setDescription,
+            setDate: setDate,
+          }
+        }
+        RUPEE_SYMBOL={RUPEE_SYMBOL}
+      />
       <div className='Transactions'>
         {
           <TransactionData

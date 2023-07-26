@@ -1,0 +1,36 @@
+import React from 'react'
+
+export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBOL}) {
+  return (
+    <div>
+        <form onSubmit={e=>AddNewTransaction(e)}>
+            <div className='Amount'>
+            <input className={amountDetails.amountColor}
+                value={amountDetails.amount}
+                onChange={e => amountDetails.setAmount(e.target.value)}
+                placeholder={RUPEE_SYMBOL}
+                type="number"></input>
+            </div>
+            <div className='AmountHint'>
+                <p className='left'> <mark className='red'>Negative</mark> for debited</p>
+                <p className='right'><mark className='green'>Positive</mark> for credited</p>
+            </div>
+            <div className='Details'>
+            <input
+                value={amountDetails.description}
+                onChange={e => amountDetails.setDescription(e.target.value)}
+                placeholder="Description of the item"
+                type="desc"></input>
+            <input
+                onChange={(e) => amountDetails.setDate(e.target.value)}
+                id='datePicker'
+                defaultValue={amountDetails.date}
+                type="date"></input>
+            </div>
+            <button className={amountDetails.amountColor} type='Submit'>
+            Add New Transaction
+            </button>
+        </form>
+    </div>
+  )
+}
