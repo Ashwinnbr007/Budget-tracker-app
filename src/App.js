@@ -8,7 +8,7 @@ function CreateDate(){
 function App() {
   const RUPEE_SYMBOL = "₹";
   const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState('No description');
   const [date, setDate] = useState(CreateDate());
   const [transactions, setTransactions] = useState([]);
 
@@ -19,13 +19,18 @@ function App() {
     e.preventDefault();
     const url = process.env.REACT_APP_API_URL+'/transaction';
     //Sending a post request to our api endpoint
-    await fetch(url,{
-      method:'POST',
-      headers:{
-        'Content-type':'application/json'
-      },
-      body:JSON.stringify({amount,description,date})
-    })
+    try {
+      await fetch(url, {
+        method:'POST',
+        headers:{
+          'Content-type':'application/json'
+        },
+        body:JSON.stringify({amount,description,date})
+      })
+    }
+    catch {
+      console.log("Cannot fetch data from MongoDB")
+    }
 
     setAmount('');
     setDescription('');
