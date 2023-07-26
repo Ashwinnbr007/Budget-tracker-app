@@ -9,7 +9,7 @@ function CreateDate(){
 function App() {
   const RUPEE_SYMBOL = "₹";
   const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('No description');
+  const [description, setDescription] = useState('');
   const [date, setDate] = useState(CreateDate());
   const [transactions, setTransactions] = useState([]);
 
@@ -22,11 +22,15 @@ function App() {
     //Sending a post request to our api endpoint
     try {
       await fetch(url, {
-        method:'POST',
-        headers:{
-          'Content-type':'application/json'
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
         },
-        body:JSON.stringify({amount,description,date})
+        body: JSON.stringify({
+          amount,
+          description,
+          date
+        })
       })
     }
     catch {
@@ -45,6 +49,9 @@ function App() {
       return await res.json();
     }
     FetchData().then(transaction => { setTransactions(transaction) });
+    transactions.sort(function (a, b) {
+      return new Date(a.date) - new Date(b.date)
+    });
   }, [transactions])
 
   let headerString = ""
@@ -70,13 +77,13 @@ function App() {
         AddNewTransaction={AddNewTransaction}
         amountDetails={
           {
-            amountColor: amountColor,
-            amount: amount,
-            description: description,
-            date: date,
-            setAmount: setAmount,
-            setDescription: setDescription,
-            setDate: setDate,
+            amountColor,
+            amount,
+            description,
+            date,
+            setAmount,
+            setDescription,
+            setDate,
           }
         }
         RUPEE_SYMBOL={RUPEE_SYMBOL}

@@ -161,8 +161,10 @@ form div.Details{
   color: var(--greenAccentColor);
 }
 .TransactionDetails{
-  font-size: 20px;
+  font-size: 17px;
   text-align: right;
+  font-style: italic;
+  margin-bottom: 5px;
 }
 .TransactionDate{
   font-size: 13px;
