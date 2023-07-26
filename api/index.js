@@ -30,6 +30,13 @@ app.get('/api/transactions/', async (req, res) => {
     res.json(Transactions);
 })
 
+app.delete('/api/transaction/delete/:id', async (req, res) => {
+    const id = req.params.id
+    await mongoose.connect(process.env.MONGO_URL);
+    const Transactions = await transaction.deleteOne(await transaction.findById(id));
+    res.json(Transactions);
+})
+
 if (process.env.PORT) {
     app.listen(4000)
 }
