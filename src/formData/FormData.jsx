@@ -5,11 +5,12 @@ export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBO
     <div>
         <form onSubmit={e=>AddNewTransaction(e)}>
             <div className='Amount'>
-            <input className={amountDetails.amountColor}
-                value={amountDetails.amount}
-                onChange={e => amountDetails.setAmount(e.target.value)}
-                placeholder={RUPEE_SYMBOL}
-                type="number"></input>
+                <input className={amountDetails.amountColor}
+                    value={amountDetails.amount}
+                    onChange={e => amountDetails.setAmount(e.target.value)}
+                    placeholder={RUPEE_SYMBOL}
+                    required
+                    type="number"></input>
             </div>
             <div className='AmountHint'>
                 <p className='left'> <mark className='red'>Negative</mark> for debited</p>
@@ -19,7 +20,8 @@ export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBO
             <input
                 value={amountDetails.description}
                 onChange={e => amountDetails.setDescription(e.target.value)}
-                placeholder="Description of the item"
+                placeholder="Description"
+                maxLength={20}
                 type="desc"></input>
             <input
                 onChange={(e) => amountDetails.setDate(e.target.value)}

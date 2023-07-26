@@ -123,12 +123,37 @@ form button{
   cursor: pointer;
 }
 
+button{
+  padding: 10px;
+  border-radius: 8px;
+  border: none ;
+  font-size: 12px;
+  background-color: var(--greyBorderColor);
+  color: var(--greyAccentColor);
+  cursor: pointer;
+}
+
 form button.green:hover{
   border: 2px solid var(--greenAccentColor);
   color: var(--whiteTextColor);
 }
 
-form button.red:hover{
+.btn-red{
+  background-color: transparent;
+  border: solid 1px var(--lighterRedText);
+  color: var(--redAccentColor);
+  width: 65px;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  padding: 5px 15px;
+}
+
+.btn-red:hover{
+  border: 2px solid var(--redAccentColor);
+  color: var(--redAccentColor);
+}
+
+button.red:hover{
   border: 2px solid var(--redAccentColor);
   color: var(--whiteTextColor);
 }

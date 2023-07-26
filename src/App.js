@@ -8,6 +8,7 @@ function CreateDate(){
 }
 function App() {
   const RUPEE_SYMBOL = "₹";
+  const url = process.env.REACT_APP_API_URL+'/transaction';
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(CreateDate());
@@ -15,10 +16,24 @@ function App() {
 
   let amountColor = amount === "0" || amount === "" ? "default" : (amount > 0) ? "green" : "red";
 
+  async function deleteTransaction(idx) {
+    var deleteUrl = url + "/delete/" + idx
+    try {
+      await fetch(deleteUrl, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+    }
+    catch {
+      console.log("Cannot delete data from MongoDB")
+    }
+  }
+
   async function AddNewTransaction(e) {
     
     e.preventDefault();
-    const url = process.env.REACT_APP_API_URL+'/transaction';
     //Sending a post request to our api endpoint
     try {
       await fetch(url, {
@@ -90,6 +105,7 @@ function App() {
           <TransactionData
             transactions={transactions}
             RUPEE_SYMBOL={RUPEE_SYMBOL}
+            deleteTransaction={deleteTransaction}
           />
         }
       </div>
