@@ -18,7 +18,7 @@ function App() {
   const [date, setDate] = useState(CreateDate());
   const [isEditing, setIsEditing] = useState(false)
   const [transactions, setTransactions] = useState([]);
-  const [editingTxn, setEditingTxn] = useState(null)
+  const [editingTxn, setEditingTxn] = useState(null);
 
   let amountColor = amount === "0" || amount === "" ? "default" : (amount > 0) ? "green" : "red";
 
@@ -37,14 +37,24 @@ function App() {
     }
   }
 
-  function updateTransaction(idx) {
+  function updateTransaction(idx, _isEditing) {
     const txn = transactions.find(item => item._id === idx);
-    setEditingTxn(txn);
-    setAmount(txn.amount);
-    setDescription(txn.description);
-    setDate(txn.date);
-    setButtonMsg(UPDATE_TXN);
-    setIsEditing(true);
+    if (_isEditing) {
+      setEditingTxn([]);
+      setAmount('');
+      setDescription('');
+      setDate(CreateDate());
+      setButtonMsg(ADD_TXN);
+      setIsEditing(false);
+    }
+    else {
+      setEditingTxn(txn);
+      setAmount(txn.amount);
+      setDescription(txn.description);
+      setDate(txn.date);
+      setButtonMsg(UPDATE_TXN);
+      setIsEditing(true);
+    }
   }
 
   async function AddNewTransaction(e, idx = null) {
@@ -132,6 +142,7 @@ function App() {
         RUPEE_SYMBOL={RUPEE_SYMBOL}
         deleteTransaction={deleteTransaction}
         updateTransaction={updateTransaction}
+        isEditing={isEditing}
       />
     </div>
   );

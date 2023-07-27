@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBOL, buttonMsg}) {
+export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBOL, buttonMsg }) {
   return (
     <div>
         <form onSubmit={e=>AddNewTransaction(e)}>

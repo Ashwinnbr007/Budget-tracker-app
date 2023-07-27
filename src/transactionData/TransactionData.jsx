@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
-export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTransaction, updateTransaction}) {
+export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTransaction, updateTransaction, isEditing}) {
     const revreseSortedTransactions = transactions.slice();
     revreseSortedTransactions.reverse();
+    var initialState = {}
+    revreseSortedTransactions.forEach(revreseSortedTransaction => {
+        initialState[revreseSortedTransaction._id] = false
+    });
+
+    const [transactionStates, setTransactionStates] = useState({});
+
+    const toggleEditing = (txnId) => {
+        setTransactionStates(prevStates => {
+            const newStates = {};
+            Object.keys(initialState).forEach(id => {
+              newStates[id] = id === txnId ? !prevStates[id]  : false;
+            });
+            return newStates;
+        });
+        updateTransaction(txnId, transactionStates[txnId]);
+    };
 
     return (
         <div className='Transactions'>
-            {revreseSortedTransactions.length > 0 && revreseSortedTransactions.map((transaction, idx) => (
+            {revreseSortedTransactions.length > 0 && revreseSortedTransactions.map((transaction) => (
                 <div className='Transaction' key={transaction._id}>
                         <div className='Left' style={{display:"flex", alignItems:'center'}}>
                             <div className={
@@ -22,11 +39,11 @@ export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTrans
                             <div className='TransactionDate'>{transaction.date}</div>
                         <div style={{textAlign:'center'}}>
                                 <button className='btn-red' style={{marginRight:"5px"} } onClick={() => deleteTransaction(transaction._id)}>Delete</button>
-                                <button className='btn-yellow' style={{textAlign:"center"}} onClick={() => updateTransaction(transaction._id)}>Update</button>
+                            <button className='btn-yellow' style={{ textAlign: "center" }} onClick={() => toggleEditing(transaction._id)}>{transactionStates[transaction._id] ? "Undo" : "Update"}</button>
                             </div>
                         </div>
                     </div>
             ))}
         </div>
-  )
+    )
 }
