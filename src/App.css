@@ -14,6 +14,8 @@ input::-webkit-inner-spin-button {
   --pureWhiteColor:#fff;
   --almostBlackColor:#17181f;
   --greyBorderColor:#30313d;
+  --yellowAccentColor:#c2c41d;
+  --yellowTextColor:#e0e406;
 }
 
 *{
@@ -151,6 +153,17 @@ form button.green:hover{
   color: var(--redAccentColor);
   width: 65px;
   margin-top: 10px;
+  text-align: center;
+  margin-bottom: 2px;
+  padding: 5px 15px;
+}
+
+.btn-yellow{
+  background-color: transparent;
+  border: solid 1px var(--yellowAccentColor);
+  color: var(--yellowTextColor);
+  text-align: center;
+  margin-top: 10px;
   margin-bottom: 2px;
   padding: 5px 15px;
 }
@@ -158,6 +171,11 @@ form button.green:hover{
 .btn-red:hover{
   border: 2px solid var(--redAccentColor);
   color: var(--redAccentColor);
+}
+
+.btn-yellow:hover{
+  border: 2px solid var(--yellowAccentColor);
+  color: var(--yellowTextColor);
 }
 
 button.red:hover{

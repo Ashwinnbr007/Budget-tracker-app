@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTransaction}) {
+export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTransaction, updateTransaction}) {
     const revreseSortedTransactions = transactions.slice();
     revreseSortedTransactions.reverse();
 
@@ -17,10 +17,13 @@ export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTrans
                                     transaction.amount)}
                             </div>
                         </div>
-                        <div className='Right' style={{display: "flex", flexDirection:"column", alignItems:'flex-end', maxWidth:"150px"}}>
+                        <div className='Right' style={{display: "flex", flexDirection:"column", maxWidth:"150px"}}>
                             <div className='TransactionDetails'>{transaction.description}</div>
                             <div className='TransactionDate'>{transaction.date}</div>
-                            <button className='btn-red' onClick={() => deleteTransaction(transaction._id)}>Delete</button>
+                        <div style={{textAlign:'center'}}>
+                                <button className='btn-red' style={{marginRight:"5px"} } onClick={() => deleteTransaction(transaction._id)}>Delete</button>
+                                <button className='btn-yellow' style={{textAlign:"center"}} onClick={() => updateTransaction(transaction._id)}>Update</button>
+                            </div>
                         </div>
                     </div>
             ))}

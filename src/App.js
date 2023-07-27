@@ -9,16 +9,21 @@ function CreateDate(){
 function App() {
   const RUPEE_SYMBOL = "₹";
   const MONEY_SYMBOL = "💸"
+  const UPDATE_TXN = "Update transaction"
+  const ADD_TXN = "Add new transaction"
   const url = process.env.REACT_APP_API_URL+'/transaction';
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
+  const [buttonMsg, setButtonMsg] = useState(ADD_TXN);
   const [date, setDate] = useState(CreateDate());
+  const [isEditing, setIsEditing] = useState(false)
   const [transactions, setTransactions] = useState([]);
+  const [editingTxn, setEditingTxn] = useState(null)
 
   let amountColor = amount === "0" || amount === "" ? "default" : (amount > 0) ? "green" : "red";
 
   async function deleteTransaction(idx) {
-    var deleteUrl = url + "/delete/" + idx
+    var deleteUrl = url + "/delete/" + idx;
     try {
       await fetch(deleteUrl, {
         method: 'DELETE',
@@ -32,12 +37,22 @@ function App() {
     }
   }
 
-  async function AddNewTransaction(e) {
-    e.preventDefault();
+  function updateTransaction(idx) {
+    const txn = transactions.find(item => item._id === idx);
+    setEditingTxn(txn);
+    setAmount(txn.amount);
+    setDescription(txn.description);
+    setDate(txn.date);
+    setButtonMsg(UPDATE_TXN);
+    setIsEditing(true);
+  }
+
+  async function AddNewTransaction(e, idx = null) {
+    if (!isEditing) e.preventDefault();
     //Sending a post request to our api endpoint
     try {
-      await fetch(url, {
-        method: 'POST',
+      await fetch(isEditing ? url + "/update/" + editingTxn._id : url, {
+        method: isEditing ? "PUT" : "POST",
         headers: {
           'Content-type': 'application/json'
         },
@@ -55,6 +70,7 @@ function App() {
     setAmount('');
     setDescription('');
     setDate(CreateDate());
+    setIsEditing(false)
   }
 
   useEffect(() => {
@@ -85,6 +101,9 @@ function App() {
   
   return (
     <div className='main'>
+      <h2 style={{fontStyle:'italic', color:"#ababab", textAlign:'center'}}>
+        Personal budget tracker 🕊
+      </h2>
       <h1 className={
         (balance > 0 ? "headerGreen" : "headerRed")}>
         {(headerString) || MONEY_SYMBOL } 
@@ -106,11 +125,13 @@ function App() {
           }
         }
         RUPEE_SYMBOL={RUPEE_SYMBOL}
+        buttonMsg={buttonMsg}
       />
       <TransactionData
         transactions={transactions}
         RUPEE_SYMBOL={RUPEE_SYMBOL}
         deleteTransaction={deleteTransaction}
+        updateTransaction={updateTransaction}
       />
     </div>
   );

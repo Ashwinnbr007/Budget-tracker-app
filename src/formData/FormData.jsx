@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBOL}) {
+export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBOL, buttonMsg}) {
   return (
     <div>
         <form onSubmit={e=>AddNewTransaction(e)}>
@@ -30,8 +30,8 @@ export default function FormData({ AddNewTransaction, amountDetails, RUPEE_SYMBO
                 max={amountDetails.date}
                 type="date"></input>
             </div>
-            <button className={amountDetails.amountColor} type='Submit'>
-            Add New Transaction
+            <button style={{marginTop:"5px"}} className={amountDetails.amountColor} type='Submit'>
+                { buttonMsg }
             </button>
         </form>
     </div>
