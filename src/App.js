@@ -35,18 +35,22 @@ function App() {
     catch {
       console.log("Cannot delete data from MongoDB")
     }
-    return true
+    resetForm();
+  }
+
+  const resetForm = () => {
+    setEditingTxn([]);
+    setAmount('');
+    setDescription('');
+    setDate(CreateDate());
+    setButtonMsg(ADD_TXN);
+    setIsEditing(false);
   }
 
   function updateTransaction(idx, _isEditing) {
     const txn = transactions.find(item => item._id === idx);
     if (_isEditing) {
-      setEditingTxn([]);
-      setAmount('');
-      setDescription('');
-      setDate(CreateDate());
-      setButtonMsg(ADD_TXN);
-      setIsEditing(false);
+      resetForm()
     }
     else {
       setEditingTxn(txn);
@@ -143,7 +147,6 @@ function App() {
         RUPEE_SYMBOL={RUPEE_SYMBOL}
         deleteTransaction={deleteTransaction}
         updateTransaction={updateTransaction}
-        isEditing={isEditing}
       />
     </div>
   );

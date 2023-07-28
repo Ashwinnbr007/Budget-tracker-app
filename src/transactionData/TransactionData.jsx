@@ -9,10 +9,10 @@ export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTrans
         initEditState[revreseSortedTransaction._id] = false
         initDeleteState[revreseSortedTransaction._id] = false
     });
-
+    
     const [editStates, setEditStates] = useState({});
     const [deleteStates, setDeleteStates] = useState({});
-
+    
     const toggleEditing = (txnId) => {
         setEditStates(prevStates => {
             const newStates = {};
@@ -24,15 +24,31 @@ export default function TransactionData({transactions, RUPEE_SYMBOL, deleteTrans
         updateTransaction(txnId, editStates[txnId]);
     };
 
+    const resetAfterDelay = (txnId, delay) => {
+        setTimeout(() => {
+            setDeleteStates(() => {
+                const newStates = {};
+                Object.keys(initDeleteState).forEach(id => {
+                    if (id === txnId) newStates[id] = false;
+                });
+                return newStates;
+            });
+        }, delay);
+    };
+
     const toggleDeleting = async (txnId) => {
-        if (deleteStates[txnId]) await deleteTransaction(txnId);
-        setDeleteStates(prevStates => {
+        if (deleteStates[txnId]) {
+            await deleteTransaction(txnId);
+        }
+        setDeleteStates(() => {
             const newStates = {};
             Object.keys(initDeleteState).forEach(id => {
-              newStates[id] = id === txnId ? true : false;
+                newStates[id] = id === txnId ? true : false;
             });
             return newStates;
         });
+
+        resetAfterDelay(txnId,5000);
     };
 
     return (
