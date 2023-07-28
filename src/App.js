@@ -35,6 +35,7 @@ function App() {
     catch {
       console.log("Cannot delete data from MongoDB")
     }
+    return true
   }
 
   function updateTransaction(idx, _isEditing) {
